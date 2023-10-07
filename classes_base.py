@@ -49,20 +49,16 @@ class Garage:
                 return car
 
     def find_car_by_max_price(self):
-        max_price = 0
         car_max_price = self.cars[0]
         for car in self.cars:
-            if int(car.get('price')) > max_price:
-                max_price = int(car.get('price'))
+            if int(car.get('price')) > car_max_price.get('price'):
                 car_max_price = car
         return car_max_price
 
     def find_car_by_min_price(self):
-        min_price = 0
         car_min_price = self.cars[0]
         for car in self.cars:
-            if int(car.get('price')) < min_price:
-                min_price = int(car.get('price'))
+            if int(car.get('price')) < car_min_price.get('price'):
                 car_min_price = car
         return car_min_price
 
