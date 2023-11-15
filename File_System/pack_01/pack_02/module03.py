@@ -1,0 +1,1 @@
+message_3 = 'This is a message from module03'
