@@ -1,0 +1,54 @@
+SELECT
+	al.name,
+	ar.name,
+	al.charts
+FROM albums AS al
+INNER JOIN artists AS ar ON ar.id = al.artist_id
+WHERE al.charts > 2200
+ORDER BY al.charts DESC;
+
+SELECT
+	al.name,
+	ar.name,
+	al.charts
+FROM albums AS al
+INNER JOIN artists AS ar ON ar.id = al.artist_id
+WHERE al.charts > (
+		SELECT AVG(charts)
+		FROM albums
+)
+ORDER BY al.charts DESC;
+
+SELECT
+	ar.name,
+	COUNT(al.id)
+FROM albums AS al
+INNER JOIN artists AS ar ON ar.id = al.artist_id
+GROUP BY ar.id;
+
+SELECT
+	ar.name,
+	SUM(al.charts) AS charts
+FROM albums AS al
+INNER JOIN artists AS ar ON ar.id = al.artist_id
+GROUP BY ar.id
+ORDER BY 2 DESC;
+
+
+SELECT
+		ar.name,
+		g.name
+FROM artists AS ar
+INNER JOIN artists_genres AS ag ON ar.id = ag.artist_id
+INNER JOIN genres AS g ON g.id = ag.genre_id
+
+SELECT
+		g.name,
+		AVG(al.charts) AS charts
+FROM artists AS ar
+INNER JOIN artists_genres AS ag ON ar.id = ag.artist_id
+INNER JOIN genres AS g ON g.id = ag.genre_id
+INNER JOIN albums AS al ON al.artist_id = ar.id
+GROUP BY g.id
+ORDER BY 2 DESC
+
