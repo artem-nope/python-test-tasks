@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h3 class="text-center">Best ever albums</h3>
+{% endblock %}
+
+{% block title %} Best ever albums {% endblock %}
+
+{% block main %}
+<div class="text-center my-3">
+    <a href="{{ url_for('top_albums') }}" class="mx-3 fs-3">Top 5 albums</a>
+</div>
+<div class="text-center my-3">
+    {% for genre in genres %}
+        <a href="{{ url_for('genre_detail', pk=genre.id) }}" class="mx-3">{{ genre }}</a>
+    {% endfor %}
+</div>
+<div class="my-3">
+    <p class="fs-4">Add new genre</p>
+    <form action="{{ url_for('add_genre') }}" method="post">
+        <input class="form-control my-1" name="name" type="text" placeholder="New genre" aria-label="default input example">
+        <input class="btn btn-primary" type="submit" value="Add genre">
+    </form>
+</div>
+<!--{{ artists }}-->
+<div class="row">
+    {% for artist, number_albums, avg_charts in artists %}
+        <div class="col-4 text-center">
+            <img src="{{url_for('static', filename='img/thumbs/' + artist.img)}}"
+                 class="w-75 h-50 object-fit-cover border rounded">
+            <p>
+                <a href="{{ url_for('artist_detail', pk=artist.id) }}" class="fs-5 text-decoration-none text-success">{{ artist }}</a>
+            </p>
+            <p>Albums: {{ number_albums }}</p>
+            <p>Charts: {{ avg_charts|int }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h3 class="text-center">{{ artist.name }}</h3>
+{% endblock %}
+
+{% block title %} {{ artist.name }} {% endblock %}
+
+{% block main %}
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <img src="{{url_for('static', filename='img/thumbs/' + artist.img)}}"
+                 class="w-100 object-fit-cover border rounded">
+            <div class="mt-3 text-center">
+                {% for genre in artist.genres %}
+                    <a href="{{ url_for('genre_detail', pk=genre.id) }}" class="mx-3">{{ genre }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Album</th>
+                      <th scope="col">Year</th>
+                      <th scope="col">Charts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for album in artist.albums|sort(attribute='year', reverse=True) %}
+                        <tr>
+                          <th scope="row">{{ loop.index }}</th>
+                          <td>
+                              <img src="{{album.img}}"
+                                     class="border rounded">
+                              {{ album.name }}
+                          </td>
+                          <td>{{ album.year }}</td>
+                          <td>{{ album.charts }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="my-3">
+                <p class="fs-4">Add new album to {{ artist.name }}</p>
+                <form action="{{ url_for('add_album') }}" method="post">
+                    <input class="form-control my-1" name="name" type="text" placeholder="Album name" aria-label="default input example">
+                    <input class="form-control my-1" name="year" type="number" placeholder="Album year" aria-label="default input example">
+                    <input class="form-control my-1" name="charts" type="number" placeholder="Album charts" aria-label="default input example">
+                    <input class="form-control my-1" name="img" type="text" placeholder="Album image" aria-label="default input example">
+                    <input name="pk" type="hidden" value="{{ artist.id }}">
+                    <input class="btn btn-primary" type="submit" value="Add album">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

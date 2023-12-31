@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h3 class="text-center">Top 5 albums</h3>
+{% endblock %}
+
+{% block title %} Top 5 albums {% endblock %}
+
+{% block main %}
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Artist</th>
+                      <th scope="col">Album</th>
+                      <th scope="col">Charts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for album, artist in top_albums %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>
+                                <img src="{{url_for('static', filename='img/thumbs/' + artist.img)}}"
+                                     class="w-75 h-50 object-fit-cover border rounded">
+                                <p>
+                                    <a href="{{ url_for('artist_detail', pk=artist.id) }}" class="fs-5 text-decoration-none text-success">{{ artist }}</a>
+                                </p>
+                            </td>
+                            <td>
+                                <img src="{{album.img}}"
+                                     class="w-75 h-50 object-fit-cover border rounded">
+                                <p>
+                                    {{ album.name }}
+                                </p>
+                            </td>
+                          <td>{{ album.charts }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
