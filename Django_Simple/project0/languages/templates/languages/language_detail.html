@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'languages/css/style.css' %}">
+<a href="{% url 'index' %}">
+    <img style="width: 50; float: left;" src="{% static  'languages/img/programming.png' %}">
+</a>
+<h1>{{ object }}</h1>
+<p>{{ object.year }}</p>
+<p>{{ object.rating }}</p>
+

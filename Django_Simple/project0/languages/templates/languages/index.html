@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'languages/css/style.css' %}">
+<img style="width: 50; float: left;" src="{% static  'languages/img/programming.png' %}">
+<h1>Langauge Application</h1>
+{% for item in object_list %}
+    <a href="{% url 'language-detail' pk=item.id %}">
+        <h3>{{ item }}</h3>
+    </a>
+    <p>Rating: {{ item.rating }}, Year: {{ item.year }}</p>
+    {% if item.description %}
+        <code>{{ item.description }}</code>
+    {% endif %}
+{% endfor %}
+
+<!--add fav.icon add more languages-->
