@@ -1,0 +1,26 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    All authors
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-primary text-center">
+        All authors
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        {% for author in object_list %}
+            <div class="col-3 text-center">
+                <img src="{{ author.portrait }}" class="w-75 h-75 my-2 object-fit-cover rounded"><br>
+                <a href="{{ author.get_absolute_url }}" class="fs-2">
+                    {{ author }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

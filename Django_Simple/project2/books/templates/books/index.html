@@ -1,0 +1,30 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    Artem's library
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-primary text-center">
+        Artem's library
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="my-5" style="height: 100px;"></div>
+    <div class="row justify-content-between mt-5">
+        <div class="col-2 text-center border rounded py-5 bg-white">
+            <i class="fa-solid fa-book-open" style="font-size: 400%;"></i><br>
+            <a href="{% url 'books:book-list' %}" class="fs-1">Books({{ book_count }})</a>
+        </div>
+        <div class="col-2 text-center border rounded py-5 bg-white">
+            <i class="fa-solid fa-user" style="font-size: 400%;"></i><br>
+            <a href="{% url 'books:author-list' %}" class="fs-1">Authors({{ author_count }})</a>
+        </div>
+        <div class="col-2 text-center border rounded py-5 bg-white">
+            <i class="fa-solid fa-masks-theater" style="font-size: 400%;"></i><br>
+            <a href="{% url 'books:genre-list' %}" class="fs-1">Genres({{ genre_count }})</a>
+        </div>
+    </div>
+{% endblock %}

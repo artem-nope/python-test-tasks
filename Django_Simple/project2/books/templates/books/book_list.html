@@ -1,0 +1,33 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    All books
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-primary text-center">
+        All books
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        {% for book in object_list %}
+            <div class="col-3 text-center">
+                <a href="{{ book.author.get_absolute_url }}" class="fs-4">
+                   {{ book.author }}
+                </a><br>
+                <img src="{{ book.cover }}" class="h-50 my-2 object-fit-fill rounded"><br>
+                <a href="{{ book.get_absolute_url }}" class="fs-2">
+                    {{ book.title }}
+                </a>
+                {% if book.num_comments > 0 %}
+                    <p>
+                        comments: {{ book.num_comments }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

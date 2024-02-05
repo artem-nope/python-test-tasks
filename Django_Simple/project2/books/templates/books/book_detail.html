@@ -1,0 +1,60 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    {{ object }}
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-primary text-center">
+        {{ object }}
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-4">
+            <a href="{{ object.author.get_absolute_url }}" class="fs-3">
+                {{ object.author }}
+            </a><br>
+            <img src="{{ object.cover }}" class="w-75 my-3 rounded">
+            <div>
+                {% for genre in object.genres.all %}
+                    <a href="#" class="m-2">
+                        {{ genre }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-4 mt-5 border rounded" style="font-size: 120%; text-align: justify;">
+            {{ object.summary }}
+        </div>
+        <div class="col-4">
+            {% if object.comments.exists %}
+                <p class="text-center fs-3 mt-5"> 
+                    Comments:
+                </p>
+                {% for comment in object.comments.all %}
+                    <p>
+                        {{ comment.username }} : {{ comment }}
+                        <span class="fst-italic text-secondary"> 
+                            {{ comment.published }}
+                        </span>
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p class="text-center fs-3 mt-5"> 
+                    There is no comments yet
+                </p>
+            {% endif %}
+            <div class="my-3">
+                <form method="post" action="{% url 'books:add-comment' pk=object.id %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type="submit" value="Add comment">
+                </form>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

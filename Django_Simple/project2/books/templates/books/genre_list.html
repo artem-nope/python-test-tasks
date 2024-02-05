@@ -1,0 +1,43 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    All genres
+{% endblock %}
+
+{% block header %}
+    <a name="top"></a>
+    <h1 class="text-primary text-center">
+        All genres
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="my-2">
+        {% for genre in object_list %}
+            <a href="#genre-{{ genre.id }}" class="mx-2">
+                {{ genre.name }}
+            </a>
+        {% endfor %}    
+    </div>
+    {% for genre in object_list %}
+        <a name="genre-{{ genre.id }}"></a>
+        <h2 class="text-secondary mt-3">
+            {{ genre }}
+        </h2>
+        <a href="#top" class="fs-3"><i class="fa-solid fa-circle-up"></i></a>
+        <div class="row mt-3">
+            {% for book in genre.books.all %}
+                <div class="col-3 text-center">
+                    <a href="{{ book.author.get_absolute_url }}" class="fs-4">
+                       {{ book.author }}
+                    </a><br>
+                    <img src="{{ book.cover }}" class="w-75 h-50 my-2 object-fit-cover rounded"><br>
+                    <a href="{{ book.get_absolute_url }}" class="fs-2">
+                        {{ book.title }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

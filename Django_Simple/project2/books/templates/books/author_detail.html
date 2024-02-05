@@ -1,0 +1,62 @@
+{% extends 'books/base.html' %}
+
+
+{% block title %}
+    {{ object }}
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-primary text-center">
+        {{ object }}
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-3">
+            <img src="{{ object.portrait }}" class="w-75 my-3 rounded">
+            <div>
+                {% for genre in object.get_genres %}
+                    <a href="#" class="m-2">
+                        {{ genre }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-5 mt-3 border rounded" style="font-size: 120%; text-align: justify;">
+            <div class="my-3">
+                {{ object.info }}
+            </div>
+            <div>
+                {% for book in object.books.all %}
+                    <div class="row my-2">
+                        <div class="col-2">
+                            <img src="{{ book.cover }}" class="w-100">
+                        </div>
+                        <div class="col-5">
+                            <a href="{{ book.get_absolute_url }}">
+                                {{ book.title }}
+                            </a>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-4">
+            {% if comments %}
+                <p class="fs-3"> 
+                    Comments:
+                </p>
+                {% for comment in comments %}
+                    <p>
+                        {{ comment.username }} about <a href="{{ comment.book.get_absolute_url }}">{{ comment.book.title }}</a>: {{ comment }}
+                        <span class="fst-italic text-secondary"> 
+                            {{ comment.published }}
+                        </span>
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
