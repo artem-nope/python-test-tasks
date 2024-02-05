@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object }} : results</title>
+    <link rel="stylesheet" href="{% static 'polls/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'polls/img/raise-hand.png' %}" type="image/x-icon">
+</head>
+<body>
+    <a href="{% url 'polls:index' %}">
+        <img src="{% static 'polls/img/raise-hand.png' %}" width="70">
+    </a>
+    <div class="container">
+        <h3>{{ object }} : Add an answer</h3>
+        <form action="{% url 'polls:add-question-answer' pk=object.id %}" method="post">
+            {% csrf_token %}
+            <p>
+                <input type="text" name="new-answer" placeholder="Input an answer" >
+            </p>
+            {% if message %}
+                <p class="warning">
+                    {{ message }}
+                </p>
+            {% endif %}
+            <p>
+                <input type="submit" value="Add answer">
+            </p>
+        </form>
+<!-- add new answer form (input text) -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object }} : results</title>
+    <link rel="stylesheet" href="{% static 'polls/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'polls/img/raise-hand.png' %}" type="image/x-icon">
+</head>
+<body>
+    <a href="{% url 'polls:index' %}">
+        <img src="{% static 'polls/img/raise-hand.png' %}" width="70">
+    </a>
+    <div class="container">
+        <h3>{{ object }} : Vote Results</h3>
+        <p>
+            Created at: {{ object.created }} <br>
+            Views: {{ object.views }}
+        </p>
+        <table class="table-results">
+            <tr>
+                <td>
+                    Answer
+                </td>
+                <td>
+                    Votes
+                </td>
+            </tr>
+            {% for a in object.answers.all|dictsortreversed:'votes' %}
+                <tr>
+                    <td>
+                        {{ a.text }}
+                    </td>
+                    <td>
+                        {{ a.votes }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'polls:question-detail' pk=object.id %}">
+            Vote again
+        </a>
+    </div>
+</body>
+</html>

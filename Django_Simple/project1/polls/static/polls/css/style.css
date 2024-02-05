@@ -1,0 +1,25 @@
+body {
+    background-image: url(../img/pexels.jpg);
+    background-size: 100%;
+}
+
+.container {
+    width: 85%;
+    margin: 50px auto;
+}
+
+.block {
+    display: inline-block;
+    width: 40%;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.warning {
+    color: red;
+    font-style: italic;
+}
+
+.table-results td {
+    padding: 20px;
+}

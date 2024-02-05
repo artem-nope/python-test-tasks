@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object }}</title>
+    <link rel="stylesheet" href="{% static 'polls/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'polls/img/raise-hand.png' %}" type="image/x-icon">
+</head>
+<body>
+    <a href="{% url 'polls:index' %}">
+        <img src="{% static 'polls/img/raise-hand.png' %}" width="70">
+    </a>
+    <div class="container">
+        <h3>{{ object }} : Vote Form</h3>
+        <p>
+            Created at: {{ object.created }} <br>
+            Views: {{ object.views }}
+        </p>
+        <form action="{% url 'polls:question-vote' pk=object.id %}" method="post">
+            {% csrf_token %}
+            {% for a in object.answers.all %}
+                <p>
+                    <input type="radio" name="answer-id" value="{{ a.id }}" id="answer-{{ a.id }}">
+                    <label for="answer-{{ a.id }}">
+                        {{ a.text }}
+                    </label> 
+                </p>
+            {% endfor %}
+            {% if message %}
+                <p class="warning">
+                    {{ message }}
+                </p>
+            {% endif %}
+            <p>
+                <input type="submit" value="Vote">
+            </p>
+        </form>
+        <a href="{% url 'polls:new-answer' pk=object.id %}">
+            Add answer for current question
+        </a>
+    </div>
+</body>
+</html>
